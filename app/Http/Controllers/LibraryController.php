@@ -7,7 +7,11 @@ use Illuminate\Http\Request;
 class LibraryController extends Controller
 {
     //
-    public function Example3(){
-        return view('Example3');
+    public function index(){
+        return view('library');
+    }
+
+    public function update(){
+        return view('updateLibrary');
     }
 }
