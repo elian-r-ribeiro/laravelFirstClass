@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ExampleController;
 use App\Http\Controllers\LibraryController;
 use App\Http\Controllers\PostController;
@@ -28,3 +29,7 @@ Route::get('/library', [LibraryController::class, 'index']);
 Route::get('/updateLibrary', [LibraryController::class, 'update']);
 Route::get('/post', [PostController::class, 'index']);
 Route::get('/updatePost', [PostController::class, 'update']);
+Route::get('/contact', [ContactController::class, 'index']);
+Route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
+Route::put('/contact/update', [ContactController::class, 'update'])->name('contact.update');
+Route::delete('/contact/delete/{id}', [ContactController::class, 'destroy'])->name('contact.destroy');
