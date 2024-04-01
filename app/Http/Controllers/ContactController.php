@@ -46,7 +46,7 @@ class ContactController extends Controller
 
     public function decripty()
     {
-        $contact = Contact::find(5);
+        $contact = Contact::find(2);
         $contact -> name = Crypt::decryptString($contact->name);
         $contact -> email = Crypt::decryptString($contact->email);
         $contact -> phoneNumber = Crypt::decryptString($contact->phoneNumber);
