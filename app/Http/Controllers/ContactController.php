@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Contact;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 class ContactController extends Controller
 {
@@ -19,10 +20,10 @@ class ContactController extends Controller
     {
         $contact = new Contact();
 
-        $contact->name = 'Elian Ribeiro';
-        $contact->email = 'aaaaaaa@gmail.com';
-        $contact->phoneNumber = '1234567890';
-        $contact->birthDate = '2004-05-29';
+        $contact->name = Crypt::encryptString('Elian Ribeiro');
+        $contact->email = Crypt::encryptString('aaaaaaa@gmail.com');
+        $contact->phoneNumber = Crypt::encryptString('1234567890');
+        $contact->birthDate = Crypt::encryptString('2004-05-29');
         $contact->save();
     }
 
@@ -41,5 +42,15 @@ class ContactController extends Controller
     {
         $contact = Contact::find($id);
         $contact->delete();
+    }
+
+    public function decripty()
+    {
+        $contact = Contact::find(5);
+        $contact -> name = Crypt::decryptString($contact->name);
+        $contact -> email = Crypt::decryptString($contact->email);
+        $contact -> phoneNumber = Crypt::decryptString($contact->phoneNumber);
+        $contact -> birthDate = Crypt::decryptString($contact->birthDate);
+        dd($contact);
     }
 }
