@@ -1,10 +1,6 @@
 <?php
 
-use App\Http\Controllers\ContactController;
-use App\Http\Controllers\ExampleController;
-use App\Http\Controllers\LibraryController;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\StudentController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,15 +18,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/example', [ExampleController::class, 'index']);
-Route::get('/student', [StudentController::class, 'index']);
-Route::get('/updateStudent', [StudentController::class, 'update']);
-Route::get('/library', [LibraryController::class, 'index']);
-Route::get('/updateLibrary', [LibraryController::class, 'update']);
-Route::get('/post', [PostController::class, 'index']);
-Route::get('/updatePost', [PostController::class, 'update']);
-Route::get('/contact', [ContactController::class, 'index']);
-Route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
-Route::put('/contact/update', [ContactController::class, 'update'])->name('contact.update');
-Route::delete('/contact/delete/{id}', [ContactController::class, 'destroy'])->name('contact.destroy');
-Route::get('/contact/decripty', [ContactController::class, 'decripty']);
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';
